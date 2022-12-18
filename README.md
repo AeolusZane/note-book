@@ -22,4 +22,4 @@ author:@aeolusj
 
 ## Helps
 
-u can visit `http://www.github1s.com` to run this project directly.
+u can visit `https://github1s.com/AeolusZane/note-book` to run this project directly.
