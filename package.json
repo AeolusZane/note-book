@@ -17,6 +17,7 @@
     "react-markdown": "^8.0.4",
     "react-router-dom": "^6.5.0",
     "react-select": "^5.7.0",
+    "sass": "^1.57.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

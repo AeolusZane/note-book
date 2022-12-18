@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button, Col, Row, Stack, Form, Card, Badge, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ReactSelect from 'react-select'
 import { Tag } from "./App";
 import styles from './NoteList.module.css';
+import { NumberDisplay } from './components/NumberDisplay'
+import dayjs from 'dayjs';
 
 type SimplifiedNote = {
     tags: Tag[]
@@ -31,6 +33,7 @@ export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: Not
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [title, setTitle] = useState<string>("");
     const [showEditTagsModal, setShowEditTagsModal] = useState(false);
+    const [time, setTime] = useState<number>(0);
 
     const filteredNotes = useMemo(() => {
         return notes.filter(note => {
@@ -40,7 +43,26 @@ export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: Not
         });
     }, [title, selectedTags, notes]);
 
+    useEffect(() => {
+        setInterval(() => {
+            setTime(Date.now().valueOf())
+        }, 1000)
+    }, [])
+
+    const timeStr = useMemo(() => {
+        let morning = '上午';
+        if (Number(dayjs(time).format('HH')) >= 12) {
+            morning = '下午';
+        }
+        return `${morning}~${dayjs(time).format('HH:mm:ss')}`;
+    }, [time])
+
     return <>
+        <Stack
+            // direction="horizontal"
+            className="justify-content-around mb-4">
+            <NumberDisplay numberString={timeStr} />
+        </Stack>
         <Row className="align-items-center mb-4">
             <Col><h1>Notes</h1></Col>
             <Col xs="auto">
